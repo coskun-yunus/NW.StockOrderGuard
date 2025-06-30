@@ -1,0 +1,88 @@
+@model IEnumerable<NW.StockOrderGuard.UI.Web.Models.ProductViewModel>
+@using System.Net
+
+<h2>Ürün Listesi</h2>
+<form asp-action="SyncProducts" asp-controller="Home" method="post" style="margin-bottom:20px;">
+    <button type="submit" class="btn btn-success">Ürünleri Sync Et</button>
+</form>
+@if (TempData["SyncMessage"] != null)
+{
+    <div class="alert alert-info">@TempData["SyncMessage"]</div>
+}
+@if (ViewBag.Error != null)
+{
+    <div class="alert alert-danger">@ViewBag.Error</div>
+}
+else if (!Model.Any())
+{
+    <div>Hiç ürün bulunamadı.</div>
+}
+else
+{
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Başlık</th>
+                <th>Açıklama</th>
+                <th>Fiyat</th>
+                <th>Kritik Stok</th>
+                <th>Mevcut Stok</th>
+                <th>Kategori</th>
+            </tr>
+        </thead>
+        <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.Encode(item.Title)</td>
+                <td>@Html.Encode(item.Description)</td>
+                <td>@item.Price</td>
+                <td>@item.ThresholdStock</td>
+                <td>@item.CurrentStock</td>
+                <td>@Html.Encode(item.CategoryName)</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+} 
+
+@section Scripts {
+    <script>
+        function toRoman(num) {
+            if (isNaN(num) || num <= 0) return num;
+            const roman = [
+                ["M",1000],["CM",900],["D",500],["CD",400],
+                ["C",100],["XC",90],["L",50],["XL",40],
+                ["X",10],["IX",9],["V",5],["IV",4],["I",1]
+            ];
+            let result = "";
+            for (const [letter, n] of roman) {
+                while (num >= n) {
+                    result += letter;
+                    num -= n;
+                }
+            }
+            return result;
+        }
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const table = document.querySelector("table.table");
+            if (!table) return;
+            for (const row of table.tBodies[0].rows) {
+
+                // Kritik Stok
+                const kritikCell = row.cells[3];
+                if (kritikCell) {
+                    const val = parseInt(kritikCell.textContent, 10);
+                    kritikCell.textContent = toRoman(val);
+                }
+                // Mevcut Stok
+                const mevcutCell = row.cells[4];
+                if (mevcutCell) {
+                    const val = parseInt(mevcutCell.textContent, 10);
+                    mevcutCell.textContent = toRoman(val);
+                }
+            }
+        });
+    </script>
+}

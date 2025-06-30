@@ -1,0 +1,27 @@
+﻿@model IEnumerable<NW.StockOrderGuard.UI.Web.Models.OrderViewModel>
+
+<h2>Sipariş Listesi</h2>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>ProductCode</th>
+            <th>Title</th>
+            <th>BestPrice</th>
+            <th>Quantity</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.Encode(item.ProductCode)</td>
+                <td>@Html.Encode(item.Title)</td>
+                <td>@item.BestPrice</td>
+                <td>@item.Quantity</td>
+
+            </tr>
+        }
+    </tbody>
+</table>

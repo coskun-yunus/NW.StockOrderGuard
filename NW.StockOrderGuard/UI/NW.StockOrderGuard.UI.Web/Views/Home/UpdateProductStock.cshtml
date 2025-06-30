@@ -1,0 +1,22 @@
+@model NW.StockOrderGuard.UI.Web.Models.UpdateProductStockViewModel
+
+<h2>Ürün Stok Güncelle</h2>
+<form asp-action="UpdateProductStock" method="post" class="mt-4">
+    <div class="mb-3">
+        <label asp-for="ProductName" class="form-label">Ürün Adı</label>
+        <input asp-for="ProductName" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label asp-for="ThresholdStock" class="form-label">Kritik Stok</label>
+        <input asp-for="ThresholdStock" class="form-control" type="number" />
+    </div>
+    <div class="mb-3">
+        <label asp-for="CurrentStock" class="form-label">Mevcut Stok</label>
+        <input asp-for="CurrentStock" class="form-control" type="number" />
+    </div>
+    <button type="submit" class="btn btn-primary">Güncelle</button>
+</form>
+@if (!string.IsNullOrEmpty(Model.ResultMessage))
+{
+    <div class="alert alert-info mt-3">@Model.ResultMessage</div>
+} 

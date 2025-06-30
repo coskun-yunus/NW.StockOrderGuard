@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\NW.StockOrderGuard.Stock.Application\NW.StockOrderGuard.Stock.Application.csproj" />
+    <ProjectReference Include="..\NW.StockOrderGuard.Stock.Domain\NW.StockOrderGuard.Stock.Domain.csproj" />
+  </ItemGroup>
+
+</Project>

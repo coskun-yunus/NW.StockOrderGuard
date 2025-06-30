@@ -1,0 +1,22 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <p><a href="/Home/Products" class="btn btn-primary">Ürünleri Listele</a></p>
+    <p><a href="/Home/UpdateProductStock" class="btn btn-success">Stok Güncelle</a></p>
+
+    <p>
+
+    <form asp-action="CheckAndPlaceOrder" asp-controller="Home" method="post" style="display:inline;">
+        <button type="submit" class="btn btn-warning">Sipariş Kontrol & Otomasyon</button>
+    </form>
+    @if (TempData["OrderMessage"] != null)
+    {
+        <div class="alert alert-info mt-3">@TempData["OrderMessage"]</div>
+    }
+    </p>
+
+    <p><a href="/Home/OrderList" class="btn btn-primary">Sipariş Listesi Listele</a></p>
+
+</div>

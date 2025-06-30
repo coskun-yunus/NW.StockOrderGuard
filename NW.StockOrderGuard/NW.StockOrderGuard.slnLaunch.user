@@ -1,0 +1,23 @@
+[
+  {
+    "Name": "New Profile",
+    "Projects": [
+      {
+        "Path": "ProductService\\NW.StockOrderGuard.Product.API\\NW.StockOrderGuard.Product.API.csproj",
+        "Action": "Start"
+      },
+      {
+        "Path": "StockService\\NW.StockOrderGuard.Stock.API\\NW.StockOrderGuard.Stock.API.csproj",
+        "Action": "Start"
+      },
+      {
+        "Path": "GatewayService\\NW.StockOrderGuard.ApiGateway\\NW.StockOrderGuard.ApiGateway.csproj",
+        "Action": "Start"
+      },
+      {
+        "Path": "UI\\NW.StockOrderGuard.UI.Web\\NW.StockOrderGuard.UI.Web.csproj",
+        "Action": "Start"
+      }
+    ]
+  }
+]
