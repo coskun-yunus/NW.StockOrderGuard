@@ -91,3 +91,11 @@
 | POST  | `/api/stock/sync`                    | Dış stok verilerini sistemle senkronize eder            | `{ }` |
 | POST  | `/api/orders/check-and-place`        | Kritik stoklara otomatik sipariş oluşturur              | `{  }` |
 | GET   | `/api/orders`                        | Tüm oluşturulan siparişleri listeler                    | `[ { } ]` |
+
+
+
+## 🧱 Hexagonal Architecture (Ports & Adapters)
+
+Bu projede dış sistemlerle olan tüm iletişim **Hexagonal Architecture** prensibiyle tasarlanmıştır. Uygulama içindeki iş mantığı (domain ve application katmanları), dış dünya (veritabanı, dış API, UI) ile doğrudan iletişime geçmez. Tüm etkileşimler `ports` (arayüzler) ve `adapters` (uygulama dışı kaynakları saran sınıflar) üzerinden gerçekleştirilir.
+- Clean Architecture ile birlikte kullanılarak dependency yönü dıştan içe yönlendirilmiştir.
+> Bu sayede sistem, teknik bağımlılıklardan arındırılmış, modüler ve sürdürülebilir bir yapıya sahiptir.
