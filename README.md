@@ -76,3 +76,18 @@
 ---
 
 > ✅ Bu işleyiş hem domain driven hem de güvenlik bilinçli mimari ile uyumlu ilerler. Her servis yalnızca kendi görevini yerine getirir; sistemin orkestrasyonu ve güvenliği Ocelot API Gateway tarafından merkezi olarak yönetilir.
+
+
+## 🧭 Endpoint Haritası
+
+| Metod | Endpoint                             | Açıklama                                               | Response Örneği |
+|-------|--------------------------------------|---------------------------------------------------------|------------------|
+| POST  | `/api/products/sync`                 | Dış API’den ürün verilerini senkronize eder             | `{ }` |
+| GET   | `/api/products`                      | Tüm ürünleri ve kritik stok durumlarını listeler        | `[ { } ]` |
+| POST  | `/api/products`                      | Ürünlerin stok verilerini günceller                     | `{  }` |
+| GET   | `/api/products/{name}`               | Ürün adına göre detaylı ürün bilgisini getirir          | `{  }` |
+| GET   | `/api/stock/all`                     | Tüm ürünlerin stok bilgilerini listeler                 | `[ { } ]` |
+| GET   | `/api/stock/low-stock`               | Kritik stoktaki ürünleri listeler                       | `[ {  } ]` |
+| POST  | `/api/stock/sync`                    | Dış stok verilerini sistemle senkronize eder            | `{ }` |
+| POST  | `/api/orders/check-and-place`        | Kritik stoklara otomatik sipariş oluşturur              | `{  }` |
+| GET   | `/api/orders`                        | Tüm oluşturulan siparişleri listeler                    | `[ { } ]` |
