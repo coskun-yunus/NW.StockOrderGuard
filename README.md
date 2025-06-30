@@ -103,3 +103,63 @@ Bu yaklaşım sayesinde:
 - Böylece dış bağımlılıklar domain mantığından tamamen soyutlanmış olur.
 > Bu eşleşme Hexagonal mimari ile yapıldığından, sistemin iç işleyişi dış sistemlerden etkilenmeden çalışır. Gerektiğinde adapter değiştirilebilir, domain dokunulmadan kalır.
 
+
+
+# README: Stok Değerlerini Roma Rakamlarına Dönüştürme
+
+Bu proje, HTML tablosundaki kritik ve mevcut stok değerlerini Roma rakamlarına çevirir.
+
+## Nasıl Çalışır?
+
+1.  **`toRoman(num)` Fonksiyonu**: Bir sayıyı Roma rakamına dönüştürür (örn. `100` -> `C`).
+2.  **DOM Yükleme Sonrası**: Sayfa yüklendiğinde, tablo satırlarındaki stok değerlerini (`3. ve 4. sütunlar`) yakalar.
+3.  Bu sayıları `toRoman()` fonksiyonu ile Roma rakamlarına çevirir ve hücrelere geri yazar.
+
+Amaç, sayısal stok bilgilerini görsel olarak Roma rakamı formatında sunmaktır.
+
+## Uygulanan Kod
+
+```javascript
+<script>
+    function toRoman(num) {
+        if (isNaN(num) || num <= 0) return num; // Added isNaN check for robustness
+        const roman = [
+            ["M", 1000], ["CM", 900], ["D", 500], ["CD", 400],
+            ["C", 100], ["XC", 90], ["L", 50], ["XL", 40],
+            ["X", 10], ["IX", 9], ["V", 5], ["IV", 4], ["I", 1]
+        ];
+        let result = "";
+        for (const [letter, n] of roman) {
+            while (num >= n) {
+                result += letter;
+                num -= n;
+            }
+        }
+        return result;
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+        const table = document.querySelector("table.table"); // Assuming table has class "table"
+        if (table) {
+            for (const row of table.tBodies[0].rows) {
+                // Kritik Stok (3. sütun - index 2)
+                const kritikCell = row.cells[3]; // Assuming 4th column (index 3) based on original image
+                if (kritikCell) {
+                    const val = parseInt(kritikCell.textContent, 10);
+                    if (!isNaN(val)) { // Ensure it's a valid number before converting
+                         kritikCell.textContent = toRoman(val);
+                    }
+                }
+
+                // Mevcut Stok (4. sütun - index 3)
+                const mevcutCell = row.cells[4]; // Assuming 5th column (index 4) based on original image
+                if (mevcutCell) {
+                    const val = parseInt(mevcutCell.textContent, 10);
+                    if (!isNaN(val)) { // Ensure it's a valid number before converting
+                        mevcutCell.textContent = toRoman(val);
+                    }
+                }
+            }
+        }
+    });
+</script>
