@@ -70,6 +70,9 @@
 7. **Oluşturulan Siparişlerin Görüntülenmesi**  
    - `GET /api/orders` endpoint’iyle sistemde oluşturulmuş tüm siparişler listelenebilir.
 
+> 🧩 Tüm bu adımlar hem doğrudan API Gateway üzerinden test edilebilir hem de kullanıcı arayüzü üzerinden interaktif şekilde uygulanabilir.  
+> 🔗 UI'ya erişmek için: `https://localhost:7000/`
+
 ---
 
 > ✅ Bu işleyiş hem domain driven hem de güvenlik bilinçli mimari ile uyumlu ilerler. Her servis yalnızca kendi görevini yerine getirir; sistemin orkestrasyonu ve güvenliği Ocelot API Gateway tarafından merkezi olarak yönetilir.
