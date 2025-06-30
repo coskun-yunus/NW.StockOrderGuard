@@ -31,3 +31,45 @@
 | **Güvenlik Katmanları**                        | XSS/CSRF farkındalığı, header-based kontrol, stateless authentication altyapısı geliştirmeye hazırdır. |
 
 ---
+## ⚙️ Çalışma Prensibi ve Sistem Akışı
+
+**NW.StockOrderGuard**, domain odaklı olarak izole edilmiş mikroservislerin, API Gateway (Ocelot) üzerinden yönlendirilmesiyle çalışır. Her bir servis kendi bounded context'i içerisinde sorumludur. Sistem; dış API'den veri çekme, veri işleme, kritik stok tespiti ve sipariş üretme gibi süreçleri domain temelli ve güvenli bir akışla yürütür.
+
+---
+
+### 🧭 Genel Akış
+[ UI ] │ ▼ [ API Gateway (Ocelot) ] │ ├─ GET /api/products/sync              → ProductService  → FakeStore API'den ürün çek ├─ GET /api/products                   → ProductService  → Ürün listesi / kritik stok ├─ POST /api/products                  → StockService    → Ürün stok bilgisi güncelle ├─ POST /api/orders/check-and-place   → StockService    → Kritik stoklara sipariş oluştur └─ GET /api/orders                     → StockService    → Siparişleri listele
+
+---
+
+## 🧪 Örnek Senaryo – Sistemin Adım Adım Çalışması
+
+1. **Uygulama Başlatma**  
+   - `ProductService`, `StockService`, `ApiGateway` ve varsa `UI` projesi ayağa kaldırılır.
+
+2. **Ürün Senkronizasyonu**  
+   - `GET /api/products/sync` endpoint’i çağrılarak FakeStore API’den ürünler sisteme aktarılır.
+   - Bu işlem `ProductService` tarafından yapılır ve domain modellerine dönüştürülür.
+
+3. **Ürünlerin Listelenmesi**  
+   - `GET /api/products/sync` ya da `GET /api/products` endpoint’i üzerinden ürünler listelenebilir.
+   - Listeleme sırasında stok durumu da döner.
+
+4. **Stok Bilgisi Güncelleme**  
+   - `POST /api/products` endpoint’i ile belirli ürünlerin stok miktarları güncellenir.
+   - Bu işlem `StockService` tarafından gerçekleştirilir.
+
+5. **Kritik Stokların Listelenmesi**  
+   - `GET /api/products` endpoint’i, kritik eşiğin altına düşmüş ürünleri de filtreleyerek döner.
+   - Sistem, kritik durumdaki stokları domain servisleriyle tespit eder.
+
+6. **Sipariş Oluşturma**  
+   - `POST /api/orders/check-and-place` çağrısı ile kritik stoğu olan ürünler için otomatik sipariş oluşturulur.
+   - Siparişler `StockService`’in iş kurallarıyla işlenir.
+
+7. **Oluşturulan Siparişlerin Görüntülenmesi**  
+   - `GET /api/orders` endpoint’iyle sistemde oluşturulmuş tüm siparişler listelenebilir.
+
+---
+
+> ✅ Bu işleyiş hem domain driven hem de güvenlik bilinçli mimari ile uyumlu ilerler. Her servis yalnızca kendi görevini yerine getirir; sistemin orkestrasyonu ve güvenliği Ocelot API Gateway tarafından merkezi olarak yönetilir.
