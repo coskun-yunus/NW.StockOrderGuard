@@ -1,1 +1,1 @@
-# NW.StockOrderGuard
+🧭 Proje Açıklamas
