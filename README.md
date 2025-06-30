@@ -31,5 +31,3 @@
 | **Güvenlik Katmanları**                        | XSS/CSRF farkındalığı, header-based kontrol, stateless authentication altyapısı geliştirmeye hazırdır. |
 
 ---
-
-> 📌 Bu açıklama README’nin “ilk izlenimi”ni oluşturur ve projene bakan biri hem yazılım prensiplerini hem de uygulama zihniyetini buradan kolayca kavrar.
