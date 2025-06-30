@@ -94,8 +94,12 @@
 
 
 
-## 🧱 Hexagonal Architecture (Ports & Adapters)
 
-Bu projede dış sistemlerle olan tüm iletişim **Hexagonal Architecture** prensibiyle tasarlanmıştır. Uygulama içindeki iş mantığı (domain ve application katmanları), dış dünya (veritabanı, dış API, UI) ile doğrudan iletişime geçmez. Tüm etkileşimler `ports` (arayüzler) ve `adapters` (uygulama dışı kaynakları saran sınıflar) üzerinden gerçekleştirilir.
-- Clean Architecture ile birlikte kullanılarak dependency yönü dıştan içe yönlendirilmiştir.
-> Bu sayede sistem, teknik bağımlılıklardan arındırılmış, modüler ve sürdürülebilir bir yapıya sahiptir.
+## 🔌 Fake Store API ile Nasıl Eşleşti?
+
+Sistem, dış kaynak olan Fake Store API'den gelen ürün verisini kendi domain modelleriyle **Hexagonal Architecture (Ports & Adapters)** prensiplerine göre eşleştirecek şekilde yapılandırılmıştır.
+Bu yaklaşım sayesinde:
+- `FakeStoreClient`, dış API'yi temsil eden adapter katmanında yer alır.
+- Böylece dış bağımlılıklar domain mantığından tamamen soyutlanmış olur.
+> Bu eşleşme Hexagonal mimari ile yapıldığından, sistemin iç işleyişi dış sistemlerden etkilenmeden çalışır. Gerektiğinde adapter değiştirilebilir, domain dokunulmadan kalır.
+
